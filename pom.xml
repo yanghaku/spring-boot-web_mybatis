@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 这个工程的元信息, 组织-名称-版本-描述等  -->
+    <groupId>edu.nju</groupId>
+    <artifactId>spring-boot-template</artifactId>
+    <version>0.1.0</version>
+    <name>Web</name>
+    <description>template project for Spring-boot web</description>
+
+    <!-- 当前pom.xml里面的所有变量信息 -->
+    <properties>
+        <!-- 构建工具信息 -->
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <java.version>11</java.version>
+        <project.build.locales>zh_CN</project.build.locales>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- 依赖的版本配置 -->
+        <mybatis.spring.boot.stater.version>2.2.2</mybatis.spring.boot.stater.version>
+        <mybatis.generator.maven.plugin.version>1.4.1</mybatis.generator.maven.plugin.version>
+
+        <!-- mybatis-generator配置文件路径-->
+        <mybatis.generator.generatorConfig.xml>
+            ${basedir}/src/main/resources/plugins/config-mybatis-generator.xml
+        </mybatis.generator.generatorConfig.xml>
+    </properties>
+
+    <!-- spring-boot starter, 能够统一其依赖的所有版本信息 -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.6.4</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <dependencies>
+        <!-- spring boot web 核心包 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- spring-boot 开发包, 能够调试的时候热部署 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- mysql -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <!-- mybatis starter -->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>${mybatis.spring.boot.stater.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- spring-boot的maven插件, 能够在maven管理下启动/打包工程 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <!-- mybatis-generator 插件, 根据数据库表自动生成对应的mapper和model -->
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>${mybatis.generator.maven.plugin.version}</version>
+                <configuration>
+                    <configurationFile>${mybatis.generator.generatorConfig.xml}</configurationFile>
+                    <overwrite>true</overwrite>
+                    <verbose>true</verbose>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
